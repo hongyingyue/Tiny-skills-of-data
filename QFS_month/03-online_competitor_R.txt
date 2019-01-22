@@ -3,10 +3,10 @@ library(plyr)
 library(ggplot2)
 library(ggthemes)
 library(gridExtra)
-setwd("C:\\Users\\longtan\\Desktop\\00-Code Project\\06-QFS_month")
+setwd("C:\\Users\\longtan\\Desktop\\00-Code\\06-QFS_month")
 
 
-MB=data.frame(read_excel("MB Online master sheet_201811.xlsx",sheet=1,col_names=TRUE))
+MB=data.frame(read_excel("MB Online master sheet_201812.xlsx",sheet=1,col_names=TRUE))
 MB$Complaint=paste(MB$QFS_Tier1, MB$QFS_Tier3,sep=" ")
 MBagg<-ddply(MB,.(Carline,Complaint),summarize,Value=length(Complaint))
 MBagg<-MBagg[order(MBagg$Value,decreasing=T),]
@@ -31,7 +31,7 @@ p2<-grid.arrange(p[[1]],p[[2]],p[[3]],p[[4]],ncol = 1, nrow = 4)
 
 
 
-BMW=data.frame(read_excel("BMW Online master sheet_201811.xlsx",sheet=1,col_names=TRUE))
+BMW=data.frame(read_excel("BMW Online master sheet_201812.xlsx",sheet=1,col_names=TRUE))
 BMW$Complaint=paste(BMW$QFS_Tier1, BMW$QFS_Tier3,sep=" ")
 BMWagg<-ddply(BMW,.(Type.Class,Complaint),summarize,Value=length(Complaint))
 BMWagg<-BMWagg[order(BMWagg$Value,decreasing=T),]
@@ -53,7 +53,7 @@ p2<-grid.arrange(p[[5]],p[[6]],p[[7]],p[[8]],ncol = 1, nrow = 4)
 
 
 
-Audi=data.frame(read_excel("Audi Online master sheet_201811.xlsx",sheet=1,col_names=TRUE))
+Audi=data.frame(read_excel("Audi Online master sheet_201812.xlsx",sheet=1,col_names=TRUE))
 Audi$Complaint=paste(Audi$QFS_Tier1, Audi$QFS_Tier3,sep=" ")
 Audiagg<-ddply(Audi,.(Type.Class,Complaint),summarize,Value=length(Complaint))
 Audiagg<-Audiagg[order(Audiagg$Value,decreasing=T),]
@@ -76,7 +76,7 @@ p2<-grid.arrange(p[[9]],p[[10]],p[[11]],p[[12]],ncol = 1, nrow = 4)
 
 
 
-Lexus=data.frame(read_excel("LEXUS Online master sheet_201811.xlsx",sheet=1,col_names=TRUE))
+Lexus=data.frame(read_excel("LEXUS Online master sheet_201812.xlsx",sheet=1,col_names=TRUE))
 Lexus$Complaint=paste(Lexus$QFS_Tier1, Lexus$QFS_Tier3,sep=" ")
 Lexusagg<-ddply(Lexus,.(Type.Class,Complaint),summarize,Value=length(Complaint))
 Lexusagg<-Lexusagg[order(Lexusagg$Value,decreasing=T),]
