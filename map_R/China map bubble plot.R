@@ -1,4 +1,4 @@
-setwd('C:/Users/longtan/Desktop/00-Code Project/99-Map plot')
+setwd('C:/Users/longtan/Desktop/00-Code/Visualization')
 library(plyr)
 library(ggplot2)
 library(maptools)
@@ -6,15 +6,15 @@ library(reshape2)
 library(gridExtra)
 
 #import the data
-Data<-as.data.frame(read.csv("QFS Warranty evaluation.csv",sep=';',header=T))
+Data<-as.data.frame(read.csv("./data/map_R_province.csv",sep=';',header=T))
 #Import the map data
-province<-readShapePoly("province.shp")
+province<-readShapePoly("./data/province.shp")
 chinamap<-fortify(province)
 provincedata<-data.frame(province@data,id=seq(0:924)-1)
 china_mapdata<-join(chinamap,provincedata, type = "full")
 #aggregrate
 Data_agg<-ddply(Data,.(City),summarize,Complaints_value=length(City))
-City_code<-read.table("CityGeocode.csv",sep=';',header=T)
+City_code<-read.table("./data/city_geocode_lookup.csv",sep=';',header=T)
 Da<-merge(Data_agg,City_code,by.x='City',by.y='City')
 #plot
 p1<-ggplot(data = chinamap)+ geom_path(aes(x = long, y = lat, group = id,size=0.25))+coord_map()+ylim(14,55)
@@ -36,4 +36,4 @@ theme_map <- list(theme(panel.grid.minor = element_blank(),
  legend.background = element_rect(fill = "transparent"),
  legend.box.background = element_rect(fill = "transparent")  ))
 p1<-p1+theme_map+ggtitle('Failure spacial distribution')+theme(plot.title = element_text(family = 'Helvetica',face = "bold"))
-ggsave("China map bubble plot.png", p1, height=4.8, width=9.5,bg= "transparent")
+ggsave("./outputs/China map bubble plot.png", p1, height=4.8, width=9.5,bg= "transparent")

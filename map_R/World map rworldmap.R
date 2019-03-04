@@ -1,5 +1,6 @@
+setwd('C:/Users/longtan/Desktop/00-Code/Visualization')
 library(rworldmap)
-Market<-read.table("QFS 12-MIS Market comparison.csv",header=T,sep=';',skip=2)
+Market<-read.table("./data/map_R_world.csv",header=T,sep=';',skip=2)
 Market<-data.frame(Market)
 names(Market)<-c("Country_code","Market","Metrics","Claims","Production_number","Complaint_rate")
 Market$Production_number<-as.numeric(Market$Production_number)

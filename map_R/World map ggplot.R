@@ -1,15 +1,15 @@
-setwd('C:/Users/longtan/Desktop/00-Code Project/99-Map plot')
+setwd('C:/Users/longtan/Desktop/00-Code/Visualization')
 library("plyr")
 library(ggplot2)
 library(maptools)
 
-world_map <-readShapePoly("World_countries_shp.shp")
+world_map <-readShapePoly("./data/World_countries_shp.shp")
 x <- world_map@data 
 xs <- data.frame(x,id=seq(0:238)-1)
 world_map1 <- fortify(world_map)
 world_map_data <- join(world_map1, xs, type = "full")
 
-Mydata<-read.csv("ERI market.csv",sep=';',header=T)
+Mydata<-read.csv("./data/map_R_country.csv",sep=';',header=T)
 names(Mydata)<-c("NAME","Failures")
 #replace USA to United States
 Worlddata=join(Mydata, world_map_data, type = "full")
@@ -29,7 +29,7 @@ theme_map <- list(theme(panel.grid.minor = element_blank(),
 p<-ggplot(Worlddata, aes(x = long, y = lat, group = group,fill =Failures)) +geom_polygon(colour="grey")
 p<-p+scale_fill_brewer(palette="YlOrRd")+theme_map
 p
-ggsave("World map ggplot.png", p, height=4.8, width=9.5)
+ggsave("./outputs/World map ggplot.png", p, height=4.8, width=9.5)
 
 #unique(world_map_data$NAME)
 #+coord_cartesian(xlim=c(60,155),ylim=c(0,65)) #china near area
